@@ -2,4 +2,4 @@
 
 ### Ella Siadto - Hello! Role: Person A - Inheritor of Suffer  
 ### Tess Talbot – (づ｡◕‿‿◕｡)づ
-### Rajnoor - Hello
+### Rajnoor - Hello, Role Person C. 
