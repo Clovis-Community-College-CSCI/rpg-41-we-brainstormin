@@ -47,7 +47,7 @@ class Cop : public Hero { // The Tank - strong attack, good health and takes les
 	public: 
 		Cop() : Hero() {
 			set_name("Sergio");
-			set_health = 150;
+			set_health = 100;
 		}
 		Cop(const string &new_name, int new_health) : Hero(new_name, new_health) {}
 		void take_damage(int x) override { health -= x / 2; Hero::take_damage(0); }
@@ -104,7 +104,8 @@ class Minivan_Mom : public Monster {
 		int special;
 	public: 
 		Minivan_Mom() : Monster() {
-
+			set_name("Miranda");
+			set_health = 100;
 		}
 		Minivan_Mom(const &new_name, int new_health) : Monster(new_name, new_health) {}
 		void take_damage(int x) override { health -= x; Monster::take_damage(0); }
@@ -117,7 +118,8 @@ class Leashed_Kids : public Monster {
 		int special;
 	public:
 		Leashes_Kids() : Monster() {
-
+			set_name("Kiddos");
+			set_health = 100;
 		}
 		Leashed_Kids(const &new_name, int new_health) : Monster(new_name, new_health) {}
 		void take_damage(int x) override { health -= x; Monster::take_damage(0); }
@@ -130,7 +132,8 @@ class Sneaker_Head : public Monster {
 		int special;
 	public:
 		Sneaker_Head() : Monster() {
-
+			set_name("James");
+			set_health = 100;
 		}
 		Sneaker_Head(const &new_name, int new_health) : Monster(new_name, new_health) {}
 		void take_damage(int x) override { health -= x; Monster::take_damage(0); }
@@ -143,7 +146,8 @@ class Vampires : public Monster {
 		int special;
 	public: 
 		Vampires() : Monster() {
-
+			set_name("Dracoola");
+			set_health = 100;
 		}
 		Vampires(const &new_name, int new_health) : Monster(new_name, new_health) {}
 		voide take_damage(int x) override { health -= x; Monster::take_damage(0); }
