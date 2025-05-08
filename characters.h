@@ -85,8 +85,8 @@ class Unattended_Child : public Hero { // The Healer - weak attack but increases
 
 class Monster {	
 	protected:
-        string name = "Gnomeo";
-        int health = 50;
+        string name = "Gobwin";
+        int health = 3;
     public:
         Monster() {}
         Monster(const string &new_name, int new_health) : name(new_name), health(new_health){}
@@ -95,7 +95,7 @@ class Monster {
         virtual void set_name(const string &new_name) { name = new_name; }
         virtual void set_health(int new_health) { health = new_health; }
         virtual print() { cout << "Name: " << name << " Health: " << health << endl; }
-        virtual void speak() const { cout << "*public menace activities*" << endl; }
+        virtual void speak() const { cout << "i dunno why i guard this dungeon" << endl; }
 };
 
 class Minivan_Mom : public Monster {
