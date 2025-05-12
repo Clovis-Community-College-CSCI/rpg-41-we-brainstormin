@@ -10,7 +10,12 @@
 #include <memory>
 using namespace std;
 
-class Hero {
+class Actor {
+	int x = 0, y = 0, z = 10;
+	Actor(int new_x = 0, int new_y = 0, int new_z = 10) : x(new_x), y(new_y), z(new_z){}
+}
+
+class Hero : public Actor {
 	protected:
 		string name = "Noob";
 		int health = 100;
@@ -27,7 +32,7 @@ class Hero {
 };
 
 class Karen : public Hero { // The Mage - good attack, poor health, uses moderate energy 
-	protected: 
+	protected:
 		int berate = 10;
 		int degredation = 30;
 	public: 
@@ -83,7 +88,7 @@ class Unattended_Child : public Hero { // The Healer - weak attack but increases
 };
 
 
-class Monster {	
+class Monster : public Actor {	
 	protected:
         string name = "Gobwin";
         int health = 3;
@@ -98,10 +103,10 @@ class Monster {
         virtual void speak() const { cout << "i dunno why i guard this dungeon" << endl; }
 };
 
-class Minivan_Mom : public Monster {
+class Minivan_Mom : public Monster { // Level 1 Boss
 	protected:
-		int attack;
-		int special;
+		int attack = 5;
+		int special = 15;
 	public: 
 		Minivan_Mom() : Monster() {
 			set_name("Miranda");
@@ -112,10 +117,10 @@ class Minivan_Mom : public Monster {
 		void speak() const override { cout << "No, this is MY parking space." << endl; }
 };
 
-class Leashed_Kids : public Monster {
+class Leashed_Kids : public Monster { // Level 2 Boss 
 	protected: 
-		int attack;
-		int special;
+		int attack = 10;
+		int special = 12;
 	public:
 		Leashes_Kids() : Monster() {
 			set_name("Kiddos");
@@ -126,10 +131,10 @@ class Leashed_Kids : public Monster {
 		void speak() const override { cout << "BABY SHARK DOO DOO DEE DOO DEE DOOO!" << endl; }
 };
 
-class Sneaker_Head : public Monster {
+class Sneaker_Head : public Monster { // Level 3 Boss
 	protected: 
-		int attack; 
-		int special;
+		int attack = 10; 
+		int special = 15;
 	public:
 		Sneaker_Head() : Monster() {
 			set_name("James");
@@ -140,17 +145,30 @@ class Sneaker_Head : public Monster {
 		void speak() const override { cout << "What are those?" << endl; }
 };
 
-class Vampires : public Monster {
+class Vampires : public Monster { // Level 4 Boss
 	protected:
-		int attack;
-		int special;
+		int attack = 15;
+		int special = 20;
 	public: 
 		Vampires() : Monster() {
-			set_name("Dracoola");
+			set_name("Dracoolas");
 			set_health = 100;
 		}
 		Vampires(const &new_name, int new_health) : Monster(new_name, new_health) {}
-		voide take_damage(int x) override { health -= x; Monster::take_damage(0); }
+		void take_damage(int x) override { health -= x; Monster::take_damage(0); }
 		void speak() const override { cout << "It's not a phase..." << endl; }
 };
 
+class Spirit : public Monster { // Level 5 Boss
+	protected:
+		int attack = 20;
+		int special = 25; 
+	public: 
+		Spirit() : Monster() {
+			set_name("The Spirit of Sierra Vista"); 
+			set_health = 150;
+		}
+		Spirit(const &new_name, int new_health) : Monster (new_name, new_health) {}
+		void take_damage(int x) override { health -= x; Monster::take_damage(0); }
+		void speak() const override { cout << "Bleh blah bleh" << endl; }
+};
