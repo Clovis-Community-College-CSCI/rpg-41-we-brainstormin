@@ -13,20 +13,27 @@ using namespace std;
 class Actor {
 	int x = 0, y = 0, z = 10;
 	Actor(int new_x = 0, int new_y = 0, int new_z = 10) : x(new_x), y(new_y), z(new_z){}
-}
+};
 
 class Hero : public Actor {
 	protected:
 		string name = "Noob";
 		int health = 100;
 		int energy = 50;
+		int aura = 10;
 	public: 
 		Hero() {}
 		Hero(const string &new_name, int new_health) : name(new_name), health(new_health){}
+		// Getters
 		virtual string get_name() const { return name; }
 		virtual int get_health() const { return health; }
+		virtual int get_energy() const { return energy; }
+		virtual int get_aura() const { return aura; } 
+		// Setters
 		virtual void set_name(const string &new_name) { name = new_name; }
 		virtual void set_health(int new_health) { health = new_health; }
+		virtual void set_energy(int new_energy) { energy = new_energy; }
+		virtual void set_aura(int new_aura) { aura = new_aura; }
 		virtual print() { cout << "Name: " << name << " Health: " << health << endl; }
 		virtual void speak() const { cout << "They call me Bob." << endl; }
 };
@@ -38,7 +45,7 @@ class Karen : public Hero { // The Mage - good attack, poor health, uses moderat
 	public: 
 		Karen() : Hero() {
 			set_name("Karen");
-			set_health = 80
+			set_health = 80;
 		}
 		Karen(const string &new_name, int new_health) : Hero(new_name, new_health) {}
 		void take_damage(int x) override { health -= x; Hero::take_damage(0); }
@@ -159,7 +166,7 @@ class Vampires : public Monster { // Level 4 Boss
 		void speak() const override { cout << "It's not a phase..." << endl; }
 };
 
-class Spirit : public Monster { // Level 5 Boss
+class Spirit : public Monster { // Level 5 FINAL Boss
 	protected:
 		int attack = 20;
 		int special = 25; 
