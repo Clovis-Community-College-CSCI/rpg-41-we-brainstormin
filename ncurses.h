@@ -2,7 +2,8 @@
 #include <ncurses.h>
 #include <string>
 #include <vector>
-
+#include <cstdlib>
+#include <ctime>
 using namespace std;
 const int MAP_WIDTH = 80;
 const int MAP_HEIGHT = 22;
@@ -70,6 +71,34 @@ void drawMap(WINDOW* win){
 	for (int y = 14; y <= 15; y++){
 		mvwaddch(win, y, 26, "|");
 	}
+	//draw player 
+	mvwaddch(win, playerY, playerX, "@");
 
-	wrefreash(win);
+	wrefresh(win);
 }
+
+int main() {
+	initscr();
+	cbreak();
+	noecho();
+	keypad(stdscr, True);
+	curs_set(0);//cursor hide
+
+	//arrow keys
+	mousemask(0, NULL);
+	nodelay(stdscr, True);
+
+	//game loop
+	int ch;
+	while((ch = getch()) != "q") { // q to quit
+		handleInput(ch);
+		drawMap(stdscr);
+
+		// display instructions
+		mvprintw(MAP_HEIGHT + 2, 0, "Use : arrow keys to move, space to attack, and 'q' to quit");
+		refresh();
+	}
+	endwin();
+	return 0;
+}
+
