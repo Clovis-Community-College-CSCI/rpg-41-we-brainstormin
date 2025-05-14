@@ -29,12 +29,7 @@ Really excited for this project! I have very little gaming experince other than 
 - 🧒 **Leashed Kids**
 - 👟 **Sneaker Head**
 - 🧛‍♀️ The **Never 21 Vampires**
-
----
-
-### 🧿 Deep in the ruins of *Sears*, something ancient stirs...
-
-**THE SPIRIT** of suburban consumerism —  
+- 👻 **THE SPIRIT** of suburban consumerism  
 Born from clearance racks, broken escalators,  
 and dreams of a better **Bath & Body Works**.
 
