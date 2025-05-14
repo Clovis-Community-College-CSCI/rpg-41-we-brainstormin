@@ -194,7 +194,8 @@ class Monster : public Actor {
 		// Getters
 		virtual string get_name() const { return name; }
         virtual int get_health() const { return health; }
-        // Setters
+        virtual char get_sym() const { return '~'; }
+		// Setters
 		virtual void set_name(const string &new_name) { name = new_name; }
         virtual void set_health(int new_health) { 
 			if (new_health < 0) { health = 0; }
@@ -225,6 +226,7 @@ class Minivan_Mom : public Monster { // Level 1 Boss
 			cout << "Miranda tried to run over " << target.get_name() << " with a shopping cart, -" << sDam << "!" << endl;
 			target.take_damage(sDam);
 		}
+		char get_sym() const override { return 'M'; }
 };
 
 class Leashed_Kids : public Monster { // Level 2 Boss 
@@ -250,6 +252,7 @@ class Leashed_Kids : public Monster { // Level 2 Boss
 			cout << "A kid turned into Bruce Lee and one punched " << target.get_name() << ", -" << sDam << "!" << endl;
 			target.take_damage(sDam);
 		}
+		char get_sym() const override { return 'L'; }
 };
 
 class Sneaker_Head : public Monster { // Level 3 Boss
@@ -275,6 +278,7 @@ class Sneaker_Head : public Monster { // Level 3 Boss
 			cout << "James roasted " << target.get_name() << "'s white Vans and convinced 'em to buy a shoe, -" << sDam << "!" << endl;
 			target.take_damage(sDam);
 		}
+		char get_sym() const override { return 'S'; }
 };
 
 class Vampires : public Monster { // Level 4 Boss
@@ -300,6 +304,7 @@ class Vampires : public Monster { // Level 4 Boss
 			cout << "One of them convinced " << target.get_name() << " he played Nosferatu in a Spongebob episode, -" << sDam << "!" << endl;
 			target.take_damage(sDam);
 		}
+		char get_sym() const override { return 'V'; }
 };
 
 class Spirit : public Monster { // Level 5 FINAL Boss
@@ -325,4 +330,5 @@ class Spirit : public Monster { // Level 5 FINAL Boss
 			cout << "Hibachi, Benihana, Teriyaki~ -" << sDam << "!" << endl;
 			target.take_damage(sDam);
 		}
+		char get_sym() const override { return '&'; }
 };

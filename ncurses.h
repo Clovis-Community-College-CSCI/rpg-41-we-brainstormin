@@ -52,11 +52,8 @@ void handleInput(int ch){
     }
 }
 
-void drawMap(WINDOW* win){
+void drawMap(WINDOW* win, const vector<unique_ptr<Monster>> &monsters){
 //    wclear(win); // clear screen (causing screen to flicker)
-
-	mvwaddch(win, prevPlayerY, prevPlayerX, ' ');
-	mvwaddch(win, playerY, playerX, '@');
 
     //outer walls
     for (int y = 0; y < MAP_HEIGHT; y++){
@@ -86,7 +83,7 @@ void drawMap(WINDOW* win){
     //cop
 //    mvwaddch(win, MAP_HEIGHT-2, MAP_WIDTH/2, 'C');
 
-    //path
+	//path
     for (int y = 7; y <= 8; y++){
         mvwaddch(win, y, 70, '|'); // towards sears
         mvwaddch(win, y, 35, '|'); // vendor area
@@ -96,13 +93,18 @@ void drawMap(WINDOW* win){
         mvwaddch(win, y, 45, '|');
     }
 
+	for (const auto &m : monsters) {
+		 mvwaddch(win, m->y, m->x, m->get_sym());
+	}
+
     //draw player
+	mvwaddch(win, prevPlayerY, prevPlayerX, ' ');
     mvwaddch(win, playerY, playerX, '@');
 
     wrefresh(win);
 }
 
-void mapTest() {
+void readyUp(vector<unique_ptr<Hero>> &party) {
     initscr();
     cbreak();
     noecho();
@@ -113,11 +115,39 @@ void mapTest() {
     mousemask(0, NULL);
     nodelay(stdscr, TRUE);
 
+	//heroes
+	Hero* player = party[0].get();
+	player->x = playerX;
+	player->y = playerY;
+
+	//monsters
+	vector<unique_ptr<Monster>> monsters;
+	//Minivan Mom
+    monsters.push_back(make_unique<Minivan_Mom>());
+    monsters[0]->x = 105;
+    monsters[0]->y = 11;
+	//Leashed Kids
+	monsters.push_back(make_unique<Leashed_Kids>());
+	monsters[1]->x = 40;
+	monsters[1]->y = 18;
+	//Sneaker Head
+	monsters.push_back(make_unique<Sneaker_Head>());
+	monsters[2]->x = 42;
+	monsters[2]->y = 5;
+	//Vampires
+	monsters.push_back(make_unique<Vampires>());
+	monsters[3]->x = 12;
+	monsters[3]->y = 5;
+	//Spirit of Sierra Vista
+	monsters.push_back(make_unique<Spirit>());
+	monsters[4]->x = 90;
+	monsters[4]->y = 4;
+
     //game loop
 	int ch;
     while((ch = getch()) != 'q') { // q to quit
         handleInput(ch);
-        drawMap(stdscr);
+        drawMap(stdscr, monsters);
 
         // display instructions
         mvprintw(MAP_HEIGHT + 2, 0, "Use : arrow keys to move, space to attack, and 'q' to quit");
