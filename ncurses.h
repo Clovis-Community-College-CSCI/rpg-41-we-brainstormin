@@ -104,6 +104,16 @@ void drawMap(WINDOW* win, const vector<unique_ptr<Monster>> &monsters){
     wrefresh(win);
 }
 
+Monster* catchEm(int x, int y, vector<unique_ptr<Monster>>& monsters) {
+	//bumped into a monster
+	for (auto &m : monsters) {
+		if ((abs(m->x - x) + abs(m->y -y)) == 1) {
+			return m.get();
+		}
+	}
+	return nullptr;
+}
+
 void readyUp(vector<unique_ptr<Hero>> &party) {
     initscr();
     cbreak();
@@ -142,16 +152,59 @@ void readyUp(vector<unique_ptr<Hero>> &party) {
 	monsters.push_back(make_unique<Spirit>());
 	monsters[4]->x = 90;
 	monsters[4]->y = 4;
+	
+	Monster* currTarget = nullptr;
+	bool inBattle = false;
+	int chosenOne = 0;
 
-    //game loop
+	//game loop
 	int ch;
     while((ch = getch()) != 'q') { // q to quit
         handleInput(ch);
         drawMap(stdscr, monsters);
 
+		//battle
+		if (ch == ' ') {
+			currTarget = catchEm(playerX, playerY, monsters);
+			inBattle = currTarget != nullptr;
+			if (inBattle) {
+				mvprintw(MAP_HEIGHT + 4, 0, "%s Encountered! Use: '1' to attack, '2' for special", currTarget->get_name().c_str());
+				currTarget->speak();
+			} else { mvprintw(MAP_HEIGHT + 4, 0, "You're all alone. Forever."); }
+		}
+
+		if (inBattle) {
+			Hero* inAction = party[chosenOne].get();
+			if (ch = KEY_RIGHT) chosenOne = (chosenOne + 1) % party.size();
+			if (ch = KEY_LEFT) chosenOne = (chosenOne - 1 + party.size()) % party.size();
+
+			if (ch == '1') {
+				inAction->attack(*currTarget);
+				mvprintw(MAP_HEIGHT + 5, 0, "Used ATTACK on %s: %d HP!", currTarget->get_name().c_str(), currTarget->get_health()); 
+			} else if (ch == '2') {
+				if (auto child = dynamic_cast<Unattended_Child*>(inAction)) {
+					vector<Hero*> aided;
+					for (auto &h : party) aided.push_back(h.get());
+					child->special(aided);
+				} else {
+				inAction->special(*currTarget);
+				mvprintw(MAP_HEIGHT + 5, 0, "Used SPECIAL on %s : %d HP!", currTarget->get_name().c_str(), currTarget->get_health());
+				}
+			}
+
+			if (currTarget->get_health() <= 0) {
+				mvprintw(MAP_HEIGHT + 6, 0, "PLAYER WINS!");
+				auto snap = remove_if(monsters.begin(), monsters.end(), [currTarget](unique_ptr<Monster> &m) { return m.get() == currTarget; });
+				monsters.erase(snap, monsters.end());
+				currTarget = nullptr;
+				inBattle = false;
+			}
+		}
+		
         // display instructions
-        mvprintw(MAP_HEIGHT + 2, 0, "Use : arrow keys to move, space to attack, and 'q' to quit");
+        mvprintw(MAP_HEIGHT + 2, 0, "Use : arrow keys to move, space to battle, and 'q' to quit");
         refresh();
     }
+
     endwin();
 } 

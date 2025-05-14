@@ -40,6 +40,8 @@ class Hero : public Actor {
 			moves++; 
 			set_energy(energy + 10);
 		}
+		virtual void attack(Actor &target) = 0;
+		virtual void special(Actor &target) = 0;
 		// Getters
 		virtual string get_name() const { return name; }
 		virtual int get_health() const { return health; }
@@ -167,6 +169,7 @@ class Unattended_Child : public Hero { // The Healer - weak attack but increases
 			target.take_damage(cry);
 			move();
 		}
+		void special(Actor &target) override { cout << "The child's against violence." << endl; }
 		void special(vector<Hero*> &party) {
 			if (get_energy() >= 10) {
 				speak_s();
