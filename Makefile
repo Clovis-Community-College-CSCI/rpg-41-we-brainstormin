@@ -1,7 +1,7 @@
-a.out: main.o characters.h linkedlist.h ncurses.h
+a.out: main.o characters.h linkedlist.h -lncurses
 	g++ -g fsanitize=address -std=c++23 main.o
 
-main.o: main.cc characters.h linkedlist.h ncurses.h
+main.o: main.cc characters.h linkedlist.h -lncurses
 	g++ -g fsanitize=address -std=c++23 -c main.cc
 
 clean:

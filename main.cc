@@ -1,9 +1,11 @@
 //main file
 #include "characters.h"
-#include "linkedlist.h"
+//#include "linkedlist.h"
 #include "ncurses.h"
 using namespace std;
 
-int main() {
-	
+int main(int argc, char **argv) {
+	mapTest();
+
+	return 0;
 }

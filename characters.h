@@ -1,5 +1,4 @@
-// Character Classes - for heroes, crooks,  and other characters
-// Currently under construction, up for changing creative aspects 
+// Character Classes - for heroes and heroes
 #include "/public/read.h"
 #include <stdexcept>
 #include <vector>

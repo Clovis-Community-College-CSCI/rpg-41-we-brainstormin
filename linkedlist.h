@@ -1,10 +1,11 @@
 #include "Bridges.h"
 #include "CircDLelement.h"
 #include <string>
-
+using namespace std;
 using namespace bridges;
 
-int main(int argc, char **argv) {
+void TheEngineer() {
+// int main(int argc, char **argv) {
     // bridges class initialization
     Bridges bridges (2, "tessjtalbot", "1729671476901");
 
@@ -45,5 +46,5 @@ int main(int argc, char **argv) {
     delete node3;
     delete node4;
 
-    return 0;
-}
+//    return 0;
+} 
