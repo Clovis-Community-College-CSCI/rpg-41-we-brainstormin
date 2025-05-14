@@ -11,3 +11,7 @@ Really excited for this project! I have very little gaming experince other than 
 
 ## 4 Exciting Characters!
 ![Characters](images/Characters.png)
+
+## 5 Terrifying Monsters!
+![Mobs](images/mobs.png)
+
